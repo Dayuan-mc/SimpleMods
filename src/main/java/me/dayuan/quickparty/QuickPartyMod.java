@@ -57,7 +57,7 @@ public class QuickPartyMod {
     }
     
     public static void invitePlayer(){
-    	invitePlayer(IDList);
+    	new Thread(()->invitePlayer(IDList)).start();
     }
     
     public static void EditPlayerList(String playerName,Boolean isAddingPlayer){

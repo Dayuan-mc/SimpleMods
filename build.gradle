@@ -24,8 +24,8 @@ plugins {
 }
 */
 version = "1.0"
-group= "quickparty" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "QuickPartyMod"
+group= "SimpleMods" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "SimpleMods"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 minecraft {
