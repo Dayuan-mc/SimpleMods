@@ -34,6 +34,7 @@ public class QuickPartyMod {
         this.mc = Minecraft.getMinecraft();
         QuickPartyMod.saveFile = new File(this.mc.mcDataDir, "quickparty.cfg");
         QuickPartyMod.loadSettings();
+        QuickPartyMod.saveSettings();
         ClientCommandHandler.instance.registerCommand(new Command());
         MinecraftForge.EVENT_BUS.register((Object)this);
     }
@@ -91,8 +92,7 @@ public class QuickPartyMod {
         	}
             prop.set(tmpSaveIDArray);
             
-        }
-        else {
+        }else {
            String[] tmploadIDArray = prop.getStringList();
            List<String> tmpIDList = new ArrayList<String>();
            for(int i = 0;i<tmploadIDArray.length;i++){

@@ -46,6 +46,7 @@ public class GuildAutoKick {
         this.mc = Minecraft.getMinecraft();
         GuildAutoKick.saveFile = new File(this.mc.mcDataDir, "guildautokick.cfg");
         this.loadSettings();
+        GuildAutoKick.saveSettings();
         ClientCommandHandler.instance.registerCommand(new Command());
         MinecraftForge.EVENT_BUS.register((Object)this);
     }

@@ -41,6 +41,7 @@ public class GuildAutoInvite {
         GuildAutoInvite.saveFile = new File(this.mc.mcDataDir, "guildautoinvite.cfg");
         System.out.println("Guild Auto Invite Mod is Loading!");
         this.loadSettings();
+        GuildAutoInvite.saveSettings();
         MinecraftForge.EVENT_BUS.register(this);
         ClientCommandHandler.instance.registerCommand(new Command());
 	}
