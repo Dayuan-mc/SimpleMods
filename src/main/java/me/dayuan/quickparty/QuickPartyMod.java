@@ -2,41 +2,29 @@ package me.dayuan.quickparty;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.ClientCommandHandler;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod(modid = "quickparty", name = "Quick Party Mod", version = "1.0.0")
 public class QuickPartyMod {
 	private Minecraft mc;
 	private static File saveFile;
 	public static int commandCD = 200;
-	public static List IDList = new ArrayList<String>();
+	public static List<String> IDList = new ArrayList<String>();
 	public static final Logger logger = LogManager.getLogger("QuickPartyMod");
 	
 	
@@ -44,8 +32,8 @@ public class QuickPartyMod {
 	@Mod.EventHandler
     public void init(final FMLInitializationEvent event) {
         this.mc = Minecraft.getMinecraft();
-        this.saveFile = new File(this.mc.mcDataDir, "quickparty.cfg");
-        this.loadSettings();
+        QuickPartyMod.saveFile = new File(this.mc.mcDataDir, "quickparty.cfg");
+        QuickPartyMod.loadSettings();
         ClientCommandHandler.instance.registerCommand(new Command());
         MinecraftForge.EVENT_BUS.register((Object)this);
     }
@@ -54,7 +42,7 @@ public class QuickPartyMod {
 
 
 
-    private static void invitePlayer(List PlayerList){
+    private static void invitePlayer(List<String> PlayerList){
     	for(int i = 0;i<PlayerList.size();i++){
     			Minecraft.getMinecraft().thePlayer.sendChatMessage("/party invite "+PlayerList.get(i));
     			logger.info("Invited "+PlayerList.get(i));
@@ -106,7 +94,7 @@ public class QuickPartyMod {
         }
         else {
            String[] tmploadIDArray = prop.getStringList();
-           List tmpIDList = new ArrayList<String>();
+           List<String> tmpIDList = new ArrayList<String>();
            for(int i = 0;i<tmploadIDArray.length;i++){
         	  tmpIDList.add(tmploadIDArray[i]);
            }
@@ -127,7 +115,7 @@ class Command extends CommandBase{
 
 	@Override
 	public List<String> getCommandAliases() {
-		List list = new ArrayList<String>();
+		List<String> list = new ArrayList<String>();
 		list.add("qp");
 		return list;
 	}

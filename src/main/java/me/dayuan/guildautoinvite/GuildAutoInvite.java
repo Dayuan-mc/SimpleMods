@@ -3,13 +3,11 @@ package me.dayuan.guildautoinvite;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import me.dayuan.guildautokick.GuildAutoKick;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.command.CommandBase;
@@ -21,10 +19,8 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -33,7 +29,6 @@ public class GuildAutoInvite {
 	
 	private static File saveFile;
 	private Minecraft mc;
-	private static String url;
 	public static boolean enabled = true;
 	public static int delay = 50;
 	public static int timer = 30;
@@ -43,7 +38,7 @@ public class GuildAutoInvite {
 	@EventHandler
 	public void Init(FMLInitializationEvent event){
         this.mc = Minecraft.getMinecraft();
-        this.saveFile = new File(this.mc.mcDataDir, "guildautoinvite.cfg");
+        GuildAutoInvite.saveFile = new File(this.mc.mcDataDir, "guildautoinvite.cfg");
         System.out.println("Guild Auto Invite Mod is Loading!");
         this.loadSettings();
         MinecraftForge.EVENT_BUS.register(this);
@@ -114,9 +109,9 @@ public class GuildAutoInvite {
     }
     
     public void loadSettings() {
-        final Configuration config = new Configuration(this.saveFile);
+        final Configuration config = new Configuration(GuildAutoInvite.saveFile);
         config.load();
-        this.updateSettings(config, false);
+        GuildAutoInvite.updateSettings(config, false);
     }
     
     private static void updateSettings(final Configuration config, final boolean save) {
@@ -151,7 +146,7 @@ class Command extends CommandBase{
 
 	@Override
 	public List<String> getCommandAliases() {
-		List list = new ArrayList<String>();
+		List<String> list = new ArrayList<String>();
 		list.add("gautoinvite");
 		list.add("gainvite");
 		return list;

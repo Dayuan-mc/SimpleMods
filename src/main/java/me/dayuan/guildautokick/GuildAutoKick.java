@@ -2,31 +2,24 @@ package me.dayuan.guildautokick;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -51,7 +44,7 @@ public class GuildAutoKick {
 	@Mod.EventHandler
     public void init(final FMLInitializationEvent event) {
         this.mc = Minecraft.getMinecraft();
-        this.saveFile = new File(this.mc.mcDataDir, "guildautokick.cfg");
+        GuildAutoKick.saveFile = new File(this.mc.mcDataDir, "guildautokick.cfg");
         this.loadSettings();
         ClientCommandHandler.instance.registerCommand(new Command());
         MinecraftForge.EVENT_BUS.register((Object)this);
@@ -181,9 +174,9 @@ public class GuildAutoKick {
     }
     
     public void loadSettings() {
-        final Configuration config = new Configuration(this.saveFile);
+        final Configuration config = new Configuration(GuildAutoKick.saveFile);
         config.load();
-        this.updateSettings(config, false);
+        GuildAutoKick.updateSettings(config, false);
     }
     
     private static void updateSettings(final Configuration config, final boolean save) {
@@ -230,7 +223,7 @@ class Command extends CommandBase{
 
 	@Override
 	public List<String> getCommandAliases() {
-		List list = new ArrayList<String>();
+		List<String> list = new ArrayList<String>();
 		list.add("gautokick");
 		list.add("gakick");
 		return list;
